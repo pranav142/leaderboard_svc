@@ -26,8 +26,15 @@ class Database:
         self.cursor.close()
         self.conn.close()
 
+def get_leaderboard(cursor):
+    query = "SELECT username, streak_count FROM Users ORDER BY streak_count DESC"
+    cursor.execute(query)
+    result = cursor.fetchall()
+    
+    leaderboard_data = [{'username': row[0], 'streak_count': row[1]} for row in result]
+    return leaderboard_data
 
-@app.route('/payment/<user_id:int>', methods=['POST'])
+@app.route('/leaderboard', methods=['GET'])
 def leaderboard():
     try:
         with Database() as cursor:
