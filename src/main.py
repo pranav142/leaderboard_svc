@@ -2,9 +2,11 @@ from flask import Flask, request, jsonify
 import mysql.connector
 from datetime import datetime, timedelta
 from dotenv import load_dotenv
+from flask_cors import CORS
 import os
 
 app = Flask(__name__)
+CORS(app)
 
 load_dotenv()
 
